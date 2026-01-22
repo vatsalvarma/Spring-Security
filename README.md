@@ -1,4 +1,4 @@
-<img width="1378" height="1079" alt="Screenshot 2026-01-22 230756" src="https://github.com/user-attachments/assets/fbb0396b-11e0-4e66-a915-58452c83429d" /># 🔐 Spring Security Form-Based Authentication
+# 🔐 Spring Security Form-Based Authentication
 Spring Boot application implementing **Form-Based Authentication** using **Spring Security**. After successful login, users are automatically redirected to the **Store Home Page**.
 <img width="1919" height="1079" alt="Screenshot 2026-01-22 225757" src="https://github.com/user-attachments/assets/8f536e31-fad9-4684-85b7-ef0d7dc5d944" />
 
