@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Anime Store</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* ================= RESET ================= */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: "Segoe UI", system-ui, sans-serif;
+        }
+
+        /* ================= BACKGROUND ================= */
+        body {
+          min-height: 100vh;
+          background:
+            linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
+            url("https://4kwallpapers.com/images/walls/thumbs_3t/16930.jpg");
+          background-size: cover;
+          background-position: center;
+          background-attachment: fixed;
+          color: #fff;
+        }
+
+        /* ================= HEADER ================= */
+        header {
+          padding: 30px;
+          text-align: center;
+          animation: fadeDown 1.2s ease;
+        }
+
+        header h1 {
+          font-size: 2.5rem;
+          letter-spacing: 1px;
+        }
+
+        header p {
+          opacity: 0.8;
+          margin-top: 6px;
+        }
+
+        /* ================= GRID ================= */
+        .container {
+          max-width: 1200px;
+          margin: 40px auto;
+          padding: 20px;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          gap: 30px;
+        }
+
+        /* ================= CARD ================= */
+        .card {
+          position: relative;
+          height: 380px;
+          border-radius: 22px;
+          overflow: hidden;
+          background: rgba(255,255,255,0.15);
+          backdrop-filter: blur(16px);
+          -webkit-backdrop-filter: blur(16px);
+          box-shadow: 0 30px 60px rgba(0,0,0,0.45);
+          cursor: pointer;
+          animation: floatIn 1.4s ease forwards;
+          transition: 0.5s ease;
+        }
+
+        .card:hover {
+          transform: translateY(-18px) scale(1.03);
+          box-shadow: 0 40px 80px rgba(0,0,0,0.7);
+        }
+
+        /* ================= IMAGE ================= */
+        .card img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: 0.6s ease;
+        }
+
+        .card:hover img {
+          transform: scale(1.12);
+        }
+
+        /* ================= OVERLAY ================= */
+        .overlay {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(0,0,0,0.85), transparent 60%);
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          padding: 22px;
+        }
+
+        .overlay h2 {
+          font-size: 1.3rem;
+          margin-bottom: 6px;
+        }
+
+        .overlay span {
+          font-size: 0.85rem;
+          opacity: 0.8;
+        }
+
+        /* ================= GLOW EFFECT ================= */
+        .card::before {
+          content: "";
+          position: absolute;
+          inset: -2px;
+          border-radius: 24px;
+          background: linear-gradient(120deg, #22c55e, #38bdf8, #a855f7);
+          opacity: 0;
+          z-index: -1;
+          transition: 0.5s ease;
+        }
+
+        .card:hover::before {
+          opacity: 1;
+          filter: blur(18px);
+        }
+
+        /* ================= ANIMATIONS ================= */
+        @keyframes floatIn {
+          from {
+            opacity: 0;
+            transform: translateY(60px) scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        @keyframes fadeDown {
+          from {
+            opacity: 0;
+            transform: translateY(-40px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* ================= FOOTER ================= */
+        footer {
+          text-align: center;
+          padding: 30px;
+          opacity: 0.6;
+          font-size: 0.8rem;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🎌 Anime Store</h1>
+    <p>Explore legendary anime worlds</p>
+</header>
+
+<section class="container">
+
+    <!-- Demon Slayer -->
+    <div class="card">
+        <img src="https://i.pinimg.com/736x/5b/8b/26/5b8b268f70917a4aab66029c7bacebbe.jpg">
+        <div class="overlay">
+            <h2>Demon Slayer</h2>
+            <span>Kimetsu no Yaiba</span>
+        </div>
+    </div>
+
+    <!-- Tokyo Ghoul -->
+    <div class="card">
+        <img src="https://i.pinimg.com/736x/d7/e8/e1/d7e8e19a8ec9d965950693febfe14c93.jpg">
+        <div class="overlay">
+            <h2>Tokyo Ghoul</h2>
+            <span>Dark Fantasy</span>
+        </div>
+    </div>
+
+    <!-- Attack on Titan -->
+    <div class="card">
+        <img src="https://i.pinimg.com/736x/e9/43/27/e94327533fbf18a1949e642289e0d4df.jpg">
+        <div class="overlay">
+            <h2>Attack on Titan</h2>
+            <span>Shingeki no Kyojin</span>
+        </div>
+    </div>
+
+    <!-- Death Note -->
+    <div class="card">
+        <img src="https://i.pinimg.com/736x/54/b0/f5/54b0f5a83891e3a83af0b0f1846c6ed6.jpg">
+        <div class="overlay">
+            <h2>Death Note</h2>
+            <span>Psychological Thriller</span>
+        </div>
+    </div>
+
+    <!-- One Punch Man -->
+    <div class="card">
+        <img src="https://i.pinimg.com/736x/a9/78/8e/a9788e3515bfba16a99a0d4aa3fc8729.jpg">
+        <div class="overlay">
+            <h2>One Punch Man</h2>
+            <span>Superhero Action</span>
+        </div>
+    </div>
+
+    <!-- Grand Blue -->
+    <div class="card">
+        <img src="https://i.pinimg.com/736x/01/b6/32/01b632294669b1781eeb1718d1269faa.jpg">
+        <div class="overlay">
+            <h2>Grand Blue</h2>
+            <span>Comedy / Slice of Life</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://i.pinimg.com/736x/60/af/85/60af85c782dd297785d37d5c7d5957ec.jpg">
+        <div class="overlay">
+            <h2>Heroku</h2>
+            <span> Slice of Life</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://i.pinimg.com/1200x/14/f6/8a/14f68a7c8c4f9623cb178d54d84c4fbf.jpg">
+        <div class="overlay">
+            <h2>Black & White</h2>
+            <span>heart / Slice of Life</span>
+        </div>
+    </div>
+
+</section>
+
+<footer>
+    © 2026 Anime Store • Powered by Spring Security
+</footer>
+
+</body>
+</html>

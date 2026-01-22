@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Store Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* ================= RESET ================= */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: "Segoe UI", system-ui, sans-serif;
+        }
+
+        /* ================= BACKGROUND ================= */
+        body {
+          min-height: 100vh;
+          background:
+            radial-gradient(circle at top, rgba(0,170,255,0.15), transparent 40%),
+            linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.7)),
+            url("https://4kwallpapers.com/images/walls/thumbs_3t/17607.jpg");
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          overflow: hidden;
+        }
+
+        /* ================= GLASS CARD ================= */
+        .login-card {
+          width: 390px;
+          padding: 42px;
+          border-radius: 26px;
+          background: linear-gradient(
+            145deg,
+            rgba(255,255,255,0.22),
+            rgba(255,255,255,0.08)
+          );
+          backdrop-filter: blur(22px);
+          -webkit-backdrop-filter: blur(22px);
+          box-shadow:
+            0 40px 80px rgba(0,0,0,0.55),
+            inset 0 0 0 1px rgba(255,255,255,0.15);
+          color: #fff;
+          animation: cardIn 1.4s cubic-bezier(.22,1,.36,1);
+          transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .login-card:hover {
+          transform: translateY(-4px);
+          box-shadow:
+            0 55px 100px rgba(0,0,0,0.6),
+            inset 0 0 0 1px rgba(255,255,255,0.2);
+        }
+
+        @keyframes cardIn {
+          from {
+            opacity: 0;
+            transform: translateY(60px) scale(0.92);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+          }
+        }
+
+        /* ================= TEXT ================= */
+        .login-card h1 {
+          text-align: center;
+          margin-bottom: 6px;
+          font-weight: 600;
+          letter-spacing: 0.3px;
+        }
+
+        .login-card p {
+          text-align: center;
+          font-size: 0.9rem;
+          opacity: 0.85;
+          margin-bottom: 30px;
+        }
+
+        /* ================= FLOATING INPUTS ================= */
+        .field {
+          position: relative;
+          margin-bottom: 22px;
+        }
+
+        .field input {
+          width: 100%;
+          padding: 16px 14px;
+          border-radius: 14px;
+          border: none;
+          outline: none;
+          background: rgba(255,255,255,0.92);
+          font-size: 0.95rem;
+          transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .field input:focus {
+          transform: scale(1.02);
+          box-shadow: 0 0 0 2px rgba(56,189,248,0.6);
+        }
+
+        .field label {
+          position: absolute;
+          left: 14px;
+          top: 50%;
+          transform: translateY(-50%);
+          color: #555;
+          font-size: 0.85rem;
+          pointer-events: none;
+          transition: 0.3s cubic-bezier(.22,1,.36,1);
+        }
+
+        .field input:focus + label,
+        .field input:not(:placeholder-shown) + label {
+          top: -9px;
+          background: rgba(0,0,0,0.75);
+          padding: 3px 8px;
+          border-radius: 10px;
+          color: #fff;
+          font-size: 0.7rem;
+        }
+
+        /* ================= BUTTON ================= */
+        button {
+          width: 100%;
+          padding: 15px;
+          border-radius: 18px;
+          border: none;
+          cursor: pointer;
+          font-size: 1rem;
+          font-weight: 600;
+          background: linear-gradient(135deg, #22c55e, #38bdf8);
+          color: #000;
+          transition: transform 0.3s ease, box-shadow 0.3s ease, background-position 0.6s ease;
+          background-size: 200% 200%;
+        }
+
+        button:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 18px 40px rgba(56,189,248,0.45);
+          background-position: right center;
+        }
+
+        /* ================= LOADER ================= */
+        .loader {
+          display: none;
+          margin-top: 20px;
+          text-align: center;
+          animation: fadeIn 0.6s ease forwards;
+        }
+
+        .spinner {
+          width: 38px;
+          height: 38px;
+          border: 4px solid rgba(255,255,255,0.25);
+          border-top: 4px solid #38bdf8;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin: auto;
+        }
+
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeIn {
+          from { opacity: 0; transform: translateY(8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================= MESSAGES ================= */
+        .message {
+          margin-top: 16px;
+          text-align: center;
+          font-size: 0.85rem;
+        }
+
+        .error { color: #ffb4b4; }
+        .success { color: #b4ffd4; }
+
+        .footer {
+          margin-top: 24px;
+          text-align: center;
+          font-size: 0.75rem;
+          opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="login-card">
+    <h1>🌃 Welcome Back</h1>
+    <p>Access your secure store</p>
+
+    <!-- SPRING SECURITY FORM -->
+    <form method="post" action="/login" onsubmit="showLoader()">
+
+        <!-- ✅ REQUIRED CSRF TOKEN -->
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}" />
+
+        <div class="field">
+            <input type="text" name="username" required placeholder=" ">
+            <label>Username</label>
+        </div>
+
+        <div class="field">
+            <input type="password" name="password" required placeholder=" ">
+            <label>Password</label>
+        </div>
+
+        <button type="submit">Login</button>
+    </form>
+
+
+    <!-- LOADER -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
+        <p style="margin-top:10px;font-size:0.8rem;">Signing you in...</p>
+    </div>
+
+    <!-- SPRING SECURITY MESSAGES -->
+    <div class="message error" th:if="${param.error}">
+        Invalid username or password
+    </div>
+
+    <div class="message success" th:if="${param.logout}">
+        Logged out successfully
+    </div>
+
+    <div class="footer">
+        Secure Store • Spring Security
+    </div>
+</div>
+
+<script>
+    function showLoader() {
+      document.querySelector("button").style.display = "none";
+      document.getElementById("loader").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
